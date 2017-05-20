@@ -1,7 +1,8 @@
 import networkx as nx
 import pandas as pd
 import numpy as np
-
+import matplotlib
+from scipy.spatial import distance
 
 #########################################################################################
 #   The purpose of this script is to model category data as graph.
