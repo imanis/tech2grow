@@ -78,6 +78,7 @@ def build_graph(categories):
             if nbr != 0:
                 # print(str(node[0]), str(nbr))
                 G.add_edge(str(node[0]), str(nbr))
+                #
 
     # populate node's data
     for n in nodes:
