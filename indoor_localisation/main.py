@@ -32,9 +32,9 @@ def get_element_matrix_nighboors(rowNumber, columnNumber, cat_matrix):
 
 
 def euclidean_distance(p1, p2):
-    # calculate the euclidean distance between two 2D points
-    return math.sqrt(pow(p2[0] - p1[0], 2) + pow(p2[1] - p1[1], 2))
-
+    # get the "vol de oiseau"  distance between two points
+    dst = distance.euclidean(p1,p2)
+    return dst
 
 def read_data_csv():
     # import data as csv into pd dataframe
@@ -65,34 +65,31 @@ def build_graph(categories):
     for node in nodes:
         cat_matrix[node[3]][node[2]] = node[0] + ''
 
-    print(cat_matrix[604][12])
-    # construct and fill the graph :o
-    G = nx.Graph()
-    # add edges (implicitly nodes)
-    for node in nodes:
-        # get nbrs
-        # print(node[2], node[3])
-        nbrs = get_element_matrix_nighboors(node[2], node[3], cat_matrix)
-        # print(nbrs)
+    # construct andd fill the graph :o 
+    G=nx.Graph()
+    # add edges (implicitly nodes) 
+    for cat in cats:
+        # get nbrs 
+        nbrs = get_element_matrix_nighboors(cat[3],cat[2],cat_matirix)
         for nbr in nbrs:
-            if nbr != 0:
-                # print(str(node[0]), str(nbr))
-                G.add_edge(str(node[0]), str(nbr))
-                #
+            if nbr!="":
+                G.add_edge(str(cat[0]),str(nbr)) 
 
-    # populate node's data
-    for n in nodes:
+    # populate node's data 
+    for n in cats:
         G.node[n[0]]['cat'] = n[1]
         G.node[n[0]]['abs'] = n[2]
-        G.node[n[0]]['ord'] = n[3]
+        G.node[n[0]]['ord'] = n[3]            
 
-    # print(G.edges())
-    # populate edges' data
-    for (u, v, d) in G.edges():
-        # print(v)
-        G.edge[u][v]['weight'] = euclidean_distance((G.node[u]['abs'], G.node[u]['ord']),
-                                                    (G.node[v]['abs'], G.node[v]['ord']))
-        # print(G.edge[u][v]['weight'])
+        # populate edge's weight 
+    for u,v,a in G.edges(data=True):
+        try:
+            p1=(G.node[u]['abs'],G.node[u]['ord'])
+            p2=(G.node[v]['abs'],G.node[v]['ord'])
+            G.edge[u][v]['weight'] = euclidean_distance(p1,p2)  
+        except:
+            #catch prblm in data
+            pass
 
 
 def main():
