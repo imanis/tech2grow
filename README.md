@@ -1,6 +1,8 @@
 # Tech2Grow
 Tech 2 Grow Hackathon code
 
+![alt text](http://res.cloudinary.com/ideation/image/upload/w_128,h_128/msw8en1atvrz1ytwrrrd.png)
+
 
 ## Project Name: ShoppiLens 
 ## Team : Dream way
