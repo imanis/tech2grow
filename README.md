@@ -2,12 +2,25 @@
 Tech 2 Grow Hackathon code
 
 
+## Project Name: ShoppiLens 
+## Team : Dream way
+## Members : Aymen.Z & Nidhal.S & Anis.H
+
+
+## Description:
+.....
 
 
 
 
 
+## Features
 
+- Indoor navigation through products departments
+
+
+
+## Used data:
 
 The data : 
 
