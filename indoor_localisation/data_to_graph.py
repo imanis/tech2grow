@@ -26,6 +26,16 @@ categories['HYP_GRP_CLASS_KEY'] = temp
 # prepare nodes
 cat_matirix = np.zeros((1000,1000))
 
+# add node to Graph
+nodes=[]
+for index, row in categories_FRA118.iterrows():
+    #print(row['HYP_GRP_CLASS_KEY'], row['HYP_GRP_CLASS_DESC'], row['ABSCISSA'],row['ORDINATE'] )
+    nodes.append((row['HYP_GRP_CLASS_KEY'], row['HYP_GRP_CLASS_DESC'], row['ABSCISSA'],row['ORDINATE']))
+    
+#insert nodes into matrix
+for node in nodes:
+    cat_matirix[node[3]][node[2]]=node[0]
+
 # get cats as nodes
 nodes=[]
 for index, row in categories_FRA118.iterrows():
@@ -47,21 +57,43 @@ def get_element_matrix_nighboors(rowNumber, columnNumber,matrix):
     # returnt nighboors ! yea homee
     return nighboors
 
+def ecludian_distance(p1, p2):
+    # get the "vol de oiseau"  distance between two points
+    dst = distance.euclidean(p1,p2)
+    return dst
 
 # construct andd fill the graph :o 
 G=nx.Graph()
 # add edges (implicitly nodes) 
 for node in nodes:
     # get nbrs 
-    nbrs = get_element_matrix_nighboors(node[2],node[3],cat_matirix)
+    nbrs = get_element_matrix_nighboors(node[3],node[2],cat_matirix)
     for nbr in nbrs:
-        G.add_edge(node[0],nbr) 
+        if nbr!="0":
+            G.add_edge(str(node[0]),str(nbr)) 
 
 # populate node's data 
-for node in nodes:
-    G[node[0]]['cat'] = node[1]
-    G[node[0]]['abs'] = node[2]
-    G[node[0]]['ord'] = node[3]
+for n in nodes:
+    G.node[n[0]]['cat'] = n[1]
+    G.node[n[0]]['abs'] = n[2]
+    G.node[n[0]]['ord'] = n[3]
+    
+# populate edge's weight 
+for u,v,a in G.edges(data=True):
+    try:
+        p1=(G.node[u]['abs'],G.node[u]['ord'])
+        p2=(G.node[v]['abs'],G.node[v]['ord'])
+        G.edge[u][v]['weight'] = ecludian_distance(p1,p2)  
+    except:
+        #catch prblm in data
+        pass
+        
+# some prints 
+print("numbre of node :" ,G.number_of_nodes())
+print("numbre of edges :" ,G.number_of_edges())
+
+# draw graph :D 
+#nx.draw(G)
 
 
 
