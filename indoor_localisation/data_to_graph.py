@@ -18,6 +18,11 @@ print(categories.head())
 # filter on pilote store FRA118
 categories_FRA118 = categories[categories.STORE_KEY=="FRA118"]
 
+# deal with duplicate HYP_GRP_CLASS_KEY values by adding an auto-increment prefix
+l = [str(x) for x in categories['HYP_GRP_CLASS_KEY'].values]
+temp = list(map(lambda x: x[1]+'_'+str(l[:x[0]].count(x[1]) + 1) if l.count(x[1]) > 1 else x[1], enumerate(l)))
+categories['HYP_GRP_CLASS_KEY'] = temp
+
 # prepare nodes
 cat_matirix = np.zeros((1000,1000))
 
