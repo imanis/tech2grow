@@ -1,2 +1,65 @@
 # Tech2Grow
 Tech 2 Grow Hackathon code
+
+
+
+
+
+
+
+
+
+The data : 
+
+
+│   │   ├── PRODUCT_CLASSIFICATION.txt
+                Header : HYP_GRP_CLASS_KEY|HYP_GRP_CLASS_DESC|HYP_CLASS_KEY|HYP_CLASS_DESC|HYP_SUB_CLASS_KEY|HYP_SUB_CLASS_DESC|HYP_CLUST_CLASS_DESC
+		
+				HYP_SUB_CLASS_KEY           HyperMarket unique identifier of a product sub-class (Sub-Family)
+                HYP_SUB_CLASS_DESC          HyperMarket product sub-class (Sub-Family) description
+                HYP_CLASS_KEY               HyperMarket unique ID for Class (Product Family)
+                HYP_CLASS_DESC              HyperMarket class (Product Family) description
+                HYP_GRP_CLASS_KEY           HyperMarket unique ID for Group Class (Product Group Family)
+                HYP_GRP_CLASS_DESC          HyperMarket group Class (Product Group Family) description
+                HYP_CLUST_CLASS_DESC        Cluster of several group Classes consistent (Product Group Family) description
+
+
+│   │   ├── STORE_CATEGORY_LOCALIZATION.txt
+                Header : STORE_KEY|HYP_GRP_CLASS_KEY|HYP_GRP_CLASS_DESC|ABSCISSA|ORDINATE|HEIGHT
+
+                STORE_KEY             	    Store Thales Code
+				HYP_GRP_CLASS_KEY	    	HyperMarket unique ID for Group Class (Product Group Family)
+				HYP_GRP_CLASS_DESC	    	HyperMarket group Class (Product Group Family) description
+				ABSCISSA					Location of a given product in the store defined by a number between 0 and 1000, corresponding to the minimum and maximum of a store picture 
+				ORDINATE					Location of a given product in the store defined by a number between 0 and 1000, corresponding to the minimum and maximum of a store picture 
+				HEIGHT						Height of a given product in the store defined by a number. The value is always 0
+
+
+│   │   ├── STORE_PERMANENT_PRODUCT_LOCALIZATION.txt
+                Header : ITEM_KEY|ITEM_DESC|HYP_DEPARTMENT_KEY|PRD_CAPA_TYPE||SELL_PRICE|PROMO_FLAG|UNIT_SELL_PRICE|ABSCISSA|ORDINATE|HEIGHT
+
+				ITEM_KEY		    		Barcode of the product, Global Trade Item Number (GTIN)
+				ITEM_DESC		    		Description of the product
+				HYP_DEPARTMENT_KEY	    	HyperMarket unique identifier of a product sub-class (Sub-Family)
+				PRD_CAPA_TYPE
+				SELL_PRICE		    		Current sales price for a given product, in euro cents
+				PROMO_FLAG		    		If product is in promotion period for the day, then 1, otherwise 0
+				UNIT_SELL_PRICE		   	 	Current sales price for a given product, in euro cents divided by the capacity
+				ABSCISSA		    		Location of a given product in the store defined by a number between 0 and 1000, corresponding to the minimum and maximum of a store picture 
+				ORDINATE		    		Location of a given product in the store defined by a number between 0 and 1000, corresponding to the minimum and maximum of a store picture 
+				HEIGHT			    		Height of a given product in the store defined by a number. The value is always 0
+
+
+│   │   ├── STORE_PROMOTION_PRODUCT_LOCALIZATION.txt
+                Header : STORE_KEY|ITEM_KEY|ITEM_DESC|BRAND_DESC|ABSCISSA|ORDINATE|HEIGHT
+
+				STORE_KEY             	    Store Thales Code
+				ITEM_KEY		    		Barcode of the product, Global Trade Item Number (GTIN)
+				ITEM_DESC		    		Description of the product
+				BRAND_DESC		    		HyperMarket unique identifier of a product sub-class (Sub-Family)
+				ABSCISSA		    		Location of a given product in the store defined by a number between 0 and 1000, corresponding to the minimum and maximum of a store picture 
+				ORDINATE		    		Location of a given product in the store defined by a number between 0 and 1000, corresponding to the minimum and maximum of a store picture 
+				HEIGHT			    		Height of a given product in the store defined by a number. The value is always 0
+
+		
+│   │   └── FRA118_MAP.png
