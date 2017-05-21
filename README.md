@@ -25,7 +25,7 @@ Tech 2 Grow Hackathon code
 
 - Code Organization
 
-|   FILE   | Description |
+|   FILE   | DESCRIPTION |
 |:--------:|-------------|
 | main     |  module for data reading, naviguation graph building and processing|
 | notebook |  data exploration and script testing|
