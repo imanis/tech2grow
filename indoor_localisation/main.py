@@ -11,7 +11,7 @@ import pandas as pd
 
 
 #########################################################################################
-#   The purpose of this script is to model category data as graph.                      #
+#   The purpose of this script is to model products's categories  as graph.                      #
 #   This will help us to guide the person through the category graph inside the store   #
 #########################################################################################
 
