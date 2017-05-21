@@ -10,15 +10,28 @@ Tech 2 Grow Hackathon code
 
 
 ## Description:
-.....
-
-
 
 
 
 ## Features
 
 - Indoor navigation through products departments
+
+![alt text](http://www.hostingpics.net/viewer.php?id=593579Capturedecran20170521a015204.png)
+
+	We will use the below Products/Categories location data to build an indoor navigation system. The person initial position will be detected through wifi connection. Then, according to the list of items he dictated to ShoppiLens, the system calculates the shortest path throughout the store to pick up the products he wants.
+	This path will be detailed to the user incrimentely as he wlaks in throurgh store's department voccaly.
+	The user position wil be indentified based on Wifi postioning (triangulation) system.
+
+
+
+![alt text](http://oi68.tinypic.com/2rrnpg6.jpg)
+
+	Whe have modilized the store department as a graph.
+	Nodes represent Products's Categories.
+	Every node (category) is an inner Graph of products 
+
+
 
 
 
