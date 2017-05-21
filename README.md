@@ -24,6 +24,7 @@ Tech 2 Grow Hackathon code
 	The user position wil be indentified based on Wifi postioning (triangulation) system.
 
 - Code Organization
+
 |   FILE   | Description |
 |:--------:|-------------|
 | main     |  module for data reading, naviguation graph building and processing|
