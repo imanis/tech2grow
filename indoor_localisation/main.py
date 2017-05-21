@@ -6,6 +6,7 @@ Created On: 5/20/17
 
 import sys
 
+import matplotlib.pyplot as plt
 import networkx as nx
 import pandas as pd
 from scipy.spatial import distance
@@ -123,9 +124,24 @@ def get_shortest_path(entry_tuple, target_key, graph, cat_matrix):
 def main():
     # print('hello')
     cats_df = read_data_csv()
-    print(cats_df.head(20))
+    # print(cats_df.head(20))
     graph, cat_matrix = build_graph(cats_df)
-    get_shortest_path(('E01', 'Entry Node 1', 140, 210), '212', graph, cat_matrix)
+    print(graph.edges())
+    # print(graph.node['600_2'])
+    get_shortest_path(('E01', 'Entry Node 1', 530, 422), '602_2', graph, cat_matrix)
+    # nx.draw_circular(graph)
+    #plt.show()
 
+    edges = graph.edges(data=True)
+    pos = nx.spring_layout(graph)
+    nx.draw_networkx_nodes(graph, pos=pos)
+    nx.draw_networkx_labels(graph, pos=pos)
+    colors = ['r', 'b', 'y']
+    linewidths = [20, 10, 5]
+    for ctr, edgelist in enumerate(edges):
+        print(pos)
+        nx.draw_networkx_edges(graph, pos=pos, edgelist=edgelist, edge_color=colors[ctr], width=linewidths[ctr])
+    plt.show()
+    plt.savefig('this.png')
 
 if __name__ == '__main__': main()
