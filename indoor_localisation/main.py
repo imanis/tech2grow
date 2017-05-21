@@ -4,14 +4,15 @@ Author: main
 Created On: 5/20/17
 """
 
-import math
+import sys
 
 import networkx as nx
 import pandas as pd
+from scipy.spatial import distance
 
 
 #########################################################################################
-#   The purpose of this script is to model products's categories  as graph.                      #
+#   The purpose of this script is to model products's categories  as graph.             #
 #   This will help us to guide the person through the category graph inside the store   #
 #########################################################################################
 
@@ -21,13 +22,13 @@ def get_element_matrix_nighboors(rowNumber, columnNumber, cat_matrix):
     a function that return an element nighboors in the matrix
     """
     MID_ELEM = 4
-    radius = 1
+    radius = 100
     nighboors = [cat_matrix[i][j] if i >= 0 and i < len(cat_matrix) and j >= 0 and j < len(cat_matrix[0])
                  else 0 for j in range(columnNumber - radius, columnNumber + radius + 1)
                  for i in range(rowNumber - radius, rowNumber + radius + 1)]
     # delete the central element
-    nighboors.pop(MID_ELEM)
-    # returnt nighboors ! yea homee
+    # nighboors.pop(MID_ELEM)
+    # return nighboors ! yea homee
     return nighboors
 
 
@@ -57,12 +58,12 @@ def build_graph(categories):
     # cat_matrix = np.zeros(shape=(1000, 1000))
 
     # get cats as nodes
-    nodes = []
+    cats = []
     for index, row in categories.iterrows():
-        nodes.append((str(row['HYP_GRP_CLASS_KEY']), row['HYP_GRP_CLASS_DESC'], row['ABSCISSA'], row['ORDINATE']))
+        cats.append((str(row['HYP_GRP_CLASS_KEY']), row['HYP_GRP_CLASS_DESC'], row['ABSCISSA'], row['ORDINATE']))
 
     # insert nodes into matrix
-    for node in nodes:
+    for node in cats:
         cat_matrix[node[3]][node[2]] = node[0] + ''
 
     # construct andd fill the graph :o 
@@ -70,16 +71,16 @@ def build_graph(categories):
     # add edges (implicitly nodes) 
     for cat in cats:
         # get nbrs 
-        nbrs = get_element_matrix_nighboors(cat[3],cat[2],cat_matirix)
+        nbrs = get_element_matrix_nighboors(cat[3], cat[2], cat_matrix)
         for nbr in nbrs:
-            if nbr!="":
-                G.add_edge(str(cat[0]),str(nbr)) 
+            if nbr != '':
+                G.add_edge(cat[0], str(nbr))
 
-    # populate node's data 
+    # populate node's data
     for n in cats:
         G.node[n[0]]['cat'] = n[1]
         G.node[n[0]]['abs'] = n[2]
-        G.node[n[0]]['ord'] = n[3]            
+        G.node[n[0]]['ord'] = n[3]
 
         # populate edge's weight 
     for u,v,a in G.edges(data=True):
@@ -91,11 +92,40 @@ def build_graph(categories):
             #catch prblm in data
             pass
 
+    return G, cat_matrix
+
+
+def get_shortest_path(entry_tuple, target_key, graph, cat_matrix):
+    """
+    Use the entry_tuple (node informations) to add an entry node into the graph, then use Bidirectional Dijkstra
+    Algorithm to find the shortest path (if it exists) from entry node to the traget node
+    :param entry_tuple: Entry node tuple comprising (key, description, x and y)
+    :param target_key: The key characterizing the category node we want to find
+    :param graph: The bidirectional graph to look into
+    :param cat_matrix: categories 2D map matrix
+    :return: shortest path (if it exists)
+    """
+    graph.add_node(entry_tuple[0], cat=entry_tuple[1], abs=entry_tuple[2], ord=entry_tuple[3])
+    nbrs = get_element_matrix_nighboors(entry_tuple[3], entry_tuple[2], cat_matrix)
+    for nbr in nbrs:
+        if nbr != '':
+            graph.add_edge(entry_tuple[0], str(nbr))
+    try:
+        length, path = nx.bidirectional_dijkstra(graph, entry_tuple[0], target_key)
+        print(path)
+        print(length)
+    except:
+        # catch prblm in data
+        print("Unexpected error:", sys.exc_info()[0])
+        pass
+
 
 def main():
     # print('hello')
-    cats = read_data_csv()
-    graph = build_graph(cats)
+    cats_df = read_data_csv()
+    print(cats_df.head(20))
+    graph, cat_matrix = build_graph(cats_df)
+    get_shortest_path(('E01', 'Entry Node 1', 140, 210), '212', graph, cat_matrix)
 
 
 if __name__ == '__main__': main()

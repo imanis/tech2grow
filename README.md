@@ -23,7 +23,11 @@ Tech 2 Grow Hackathon code
 	This path will be detailed to the user incrimentely as he wlaks in throurgh store's department voccaly.
 	The user position wil be indentified based on Wifi postioning (triangulation) system.
 
-
+- Code Organization
+|   FILE   | Description |
+|:--------:|-------------|
+| main     |  module for data reading, naviguation graph building and processing|
+| notebook |  data exploration and script testing|
 
 ![alt text](http://oi68.tinypic.com/2rrnpg6.jpg)
 
