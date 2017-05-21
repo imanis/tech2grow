@@ -34,6 +34,15 @@ Tech 2 Grow Hackathon code
 
 
 
+- Speech 2 text
+	Using Google speech API, we send and detect the user vocal request.
+	The voice will be analysed and converted to a list of items or categories to purchase.
+
+
+- Text 2 speech
+	To connect with the user, our system use the voice instructions to guide the user through his way and descibe detected products.
+
+
 
 ## Used data:
 
